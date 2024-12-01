@@ -55,7 +55,7 @@ const DemoAuctionPage = () => {
     }
   };
     return (
-        <div className="flex min-h-screen bg-gray-100 border border-red-500">
+        <div className="flex min-h-screen bg-gray-100">
         {/* Sidebar */}
         <div className="w-64 bg-white shadow-md p-4 space-y-4">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 mt-20">Active Auctions</h2>
