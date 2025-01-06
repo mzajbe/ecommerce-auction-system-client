@@ -43,7 +43,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.path}
-                className="text-white hover:bg-blue-50 hover:text-blue-600 px-3 py-2 rounded-md flex items-center space-x-2"
+                className="text-white hover:bg-white hover:text-orange-400 px-3 py-2 rounded-xl flex items-center space-x-2"
               >
                 {link.icon}
                 <span>{link.name}</span>
