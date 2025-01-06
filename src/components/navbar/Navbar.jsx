@@ -1,25 +1,28 @@
 import { useState } from "react";
-import { ShoppingCart, Gavel, Home, Menu, X, User, Search } from "lucide-react";
-
+import {  Gavel, Home, Menu, X, User, Search,Newspaper,Contact,ShieldQuestion    } from "lucide-react";
+//ShoppingCart,
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const NavLinks = [
     { name: "Home", icon: <Home />, path: "/" },
-    { name: "Products", icon: <ShoppingCart />, path: "/products" },
     { name: "Auctions", icon: <Gavel />, path: "/auctions" },
+    // { name: "Products", icon: <ShoppingCart />, path: "/products" },
+    {name:"Blogs",icon:<Newspaper />,path:"/blogs"},
+    {name:"Contact",icon:<Contact />,path:"/contact"},
+    {name:"About",icon:<ShieldQuestion />,path:"/about"}
   ];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="bg-white shadow-md  w-full ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className="bg-orange-400 shadow-md">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="flex items-center justify-evenly h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-blue-600">Auction System</span>
+            <span className="text-2xl font-bold text-white">Auction System</span>
           </div>
 
           {/* Search Bar */}
@@ -40,7 +43,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.path}
-                className="text-gray-700 hover:bg-blue-50 hover:text-blue-600 px-3 py-2 rounded-md flex items-center space-x-2"
+                className="text-white hover:bg-blue-50 hover:text-blue-600 px-3 py-2 rounded-md flex items-center space-x-2"
               >
                 {link.icon}
                 <span>{link.name}</span>
@@ -48,10 +51,10 @@ const Navbar = () => {
             ))}
             <a
               href="/profile"
-              className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 flex items-center space-x-2"
+              className="bg-gray-100 text-white px-4 py-2 rounded-full hover:bg-blue-600 flex items-center space-x-2"
             >
-              <User />
-              <span>Profile</span>
+              <User className="text-orange-400" />
+              <span className="text-orange-400">Login</span>
             </a>
           </div>
 
@@ -74,7 +77,7 @@ const Navbar = () => {
                 <a
                   key={link.name}
                   href={link.path}
-                  className="text-gray-700 hover:bg-blue-50 hover:text-blue-600 block px-3 py-2 rounded-md flex items-center space-x-2"
+                  className="text-white hover:bg-blue-50 hover:text-blue-600 block px-3 py-2 rounded-md flex items-center space-x-2"
                 >
                   {link.icon}
                   <span>{link.name}</span>
