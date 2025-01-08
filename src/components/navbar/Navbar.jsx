@@ -51,10 +51,10 @@ const Navbar = () => {
             ))}
             <a
               href="/profile"
-              className="bg-gray-100 text-white px-4 py-2 rounded-full hover:bg-blue-600 flex items-center space-x-2"
+              className="bg-gray-100  px-4 py-2 rounded-full  text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
             >
-              <User className="text-orange-400" />
-              <span className="text-orange-400">Login</span>
+              <User className="" />
+              <span className="">Login</span>
             </a>
           </div>
 

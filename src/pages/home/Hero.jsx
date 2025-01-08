@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 // import { Navigation } from 'swiper';
 import { Navigation } from "swiper/modules";
 import { FiCircle } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -30,9 +31,11 @@ const Hero = () => {
                 <p className="text-3xl md:text-5xl lg:text-4xl text-white font-bold text-center leading-snug md:leading-tight opacity-90 animate-fade-in">
                   Car & Bike Auctions You Can't Miss.
                 </p>
-                <button className="mt-6 px-8 py-3 bg-orange-400 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-orange-500 transition duration-300">
-                  View Auctions
-                </button>
+                <Link to="/auctionPage">
+                  <button className="mt-6 px-8 py-3 bg-orange-400 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-white hover:text-orange-400 transition duration-300">
+                    View Auctions
+                  </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
@@ -48,9 +51,11 @@ const Hero = () => {
                   Discover Incredible Deals
                 </p>
 
-                <button className="mt-6 px-8 py-3 bg-orange-400 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-orange-500 transition duration-300">
-                  View Auctions
-                </button>
+                <Link to="/auctionPage">
+                  <button className="mt-6 px-8 py-3 bg-orange-400 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-white hover:text-orange-400 transition duration-300">
+                    View Auctions
+                  </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
@@ -66,9 +71,11 @@ const Hero = () => {
                   Bid Your Way to Success
                 </p>
 
-                <button className="mt-6 px-8 py-3 bg-orange-400 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-orange-500 transition duration-300">
-                  View Auctions
-                </button>
+                <Link to="/auctionPage">
+                  <button className="mt-6 px-8 py-3 bg-orange-400 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-white hover:text-orange-400 transition duration-300">
+                    View Auctions
+                  </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>

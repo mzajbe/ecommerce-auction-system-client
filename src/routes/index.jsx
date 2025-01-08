@@ -34,6 +34,14 @@ const router = createBrowserRouter([
                 element:<AuctionDetails></AuctionDetails>,
             },
             {
+                path:'/createAuction',
+                element:<AuctionForm></AuctionForm>,
+            },
+            {
+                path:'/auctionPage',
+                element:<AuctionPage></AuctionPage>,
+            },
+            {
                 path:'/auctionDetails',
                 element:<AuctionDetails></AuctionDetails>,
             },

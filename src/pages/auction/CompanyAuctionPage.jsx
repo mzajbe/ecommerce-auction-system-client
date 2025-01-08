@@ -46,6 +46,7 @@ const CompanyAuctionPage = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Company Auctions</h1>
       <div className="overflow-x-auto">
+        
         <table className="table-auto w-full border-collapse border border-gray-200">
           <thead>
             <tr>
