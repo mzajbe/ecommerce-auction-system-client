@@ -9,6 +9,10 @@ import CompanyAuctionPage from "../pages/auction/CompanyAuctionPage";
 // import AuctionDetails from "../pages/auction/AuctionDetails";
 import AuctionPage from "../pages/auction/AuctionPage";
 import AuctionDetails from "../pages/auction/AuctionDetails";
+import ContactForm from "../pages/contactUs/ContactForm";
+
+import Demo from "../pages/Demo";
+import AboutUs from "../pages/aboutUs/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/demo',
-                element:<AuctionDetails></AuctionDetails>,
+                element:<Demo></Demo>,
             },
             {
                 path:'/createAuction',
@@ -44,6 +48,14 @@ const router = createBrowserRouter([
             {
                 path:'/auctionDetails',
                 element:<AuctionDetails></AuctionDetails>,
+            },
+            {
+                path:'/contact',
+                element:<ContactForm></ContactForm>,
+            },
+            {
+                path:'/about',
+                element:<AboutUs></AboutUs>,
             },
         
     ]
