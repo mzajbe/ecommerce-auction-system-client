@@ -13,6 +13,8 @@ import ContactForm from "../pages/contactUs/ContactForm";
 
 import Demo from "../pages/Demo";
 import AboutUs from "../pages/aboutUs/AboutUs";
+import Blog from "../pages/blog/Blog";
+import BlogDetailPage from "../pages/blog/BlogDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
             {
                 path:'/about',
                 element:<AboutUs></AboutUs>,
+            },
+            {
+                path:'/blogs',
+                element:<Blog></Blog>,
+            },
+            {
+                path:'/blog-details',
+                element:<BlogDetailPage></BlogDetailPage>,
             },
         
     ]

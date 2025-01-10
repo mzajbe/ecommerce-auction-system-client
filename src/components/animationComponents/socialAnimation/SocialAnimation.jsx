@@ -82,7 +82,7 @@ const SocialAnimation = () => {
             </g>
           </svg>
         </div>
-        <p className="text">HOVER<br /><br />FOR<br /><br />SOCIAL</p>
+        <p className="text">Join Us<br /><br />With<br /><br />SOCIAL</p>
         <div className="main_back" />
       </div>
     </StyledWrapper>
