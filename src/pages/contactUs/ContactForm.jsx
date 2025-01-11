@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Send, Car, Phone, Mail, MapPin } from "lucide-react";
 import MovingCar from "../../components/animationComponents/MovingCar";
+import carImage from "../../assets/car.svg";
 
 const ContactForm = () => {
   const [formState, setFormState] = useState({
@@ -23,7 +24,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-r from-orange-50 to-indigo-50 text-white p-8">
       {/* Background car silhouette */}
       <div className="fixed top-0 right-0 opacity-10 pointer-events-none">
         <Car className="w-96 h-96 transform rotate-12" />
@@ -77,7 +78,7 @@ const ContactForm = () => {
           </div>
 
           {/* Contact Form Section */}
-          <div className="bg-gray-800 p-8 rounded-2xl shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
+          <div className="bg-orange-50 p-8 rounded-2xl shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label className="text-gray-400">Name</label>
@@ -198,7 +199,12 @@ const ContactForm = () => {
         }
       `}</style> */}
 
-      <MovingCar></MovingCar>
+      {/* <MovingCar></MovingCar> */}
+
+      {/* car svg  */}
+      <div className="transform hover:scale-105 transition-transform duration-300 w-96 -mt-[300px]">
+        <img src={carImage} alt="Car" />
+      </div>
     </div>
   );
 };

@@ -25,7 +25,7 @@ const BlogDetailPage = () => {
     date: "January 8, 2025",
     readTime: "5 min read",
     category: "Investment",
-    mainImage: "/src/assets/blogs/1.jpg",
+    mainImage: "/src/assets/blogs/4.jpg",
     content: `
       The classic car market has seen significant changes in recent years, with certain models experiencing unprecedented growth in value. This comprehensive guide will help you navigate the classic car investment landscape of 2025.
 

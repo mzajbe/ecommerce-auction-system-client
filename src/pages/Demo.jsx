@@ -1,11 +1,14 @@
-import SocialAnimation from "../components/animationComponents/socialAnimation/SocialAnimation";
+
+
+import carImage from '../assets/car.svg';
 
 
 
 const Demo = () => {
     return (
         <div >
-            <SocialAnimation></SocialAnimation>
+            <img src={carImage} alt="Car" />  
+
             
         </div>
     );
