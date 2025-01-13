@@ -9,11 +9,11 @@ const CarShowcase = () => {
       name: "Sports Car",
       shortDesc: "Pure power and precision in perfect harmony",
       description:
-        "Experience pure adrenaline with this high-performance sports car. Built for speed and precision, it's the ultimate driving machine.",
+        "red car",
       color: "bg-red-500",
       defaultImage: "/src/assets/carShowCase/1.png",
       image:
-        "https://www.autohausdierolf.com/blog/wp-content/uploads/2023/04/German-Car-Maintenance-Carmel-Indiana.jpg",
+        "/src/assets/carShowCase/red.jpg",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const CarShowcase = () => {
         "Indulge in supreme comfort and elegance. This luxury sedan combines sophisticated design with cutting-edge technology.",
       color: "bg-blue-500",
       defaultImage: "/src/assets/carShowCase/1.png",
-      image: "/api/placeholder/400/300",
+      image: "/src/assets/carShowCase/blue.jpg",
     },
     {
       id: 3,
@@ -33,7 +33,7 @@ const CarShowcase = () => {
         "The future of sustainable driving. This electric SUV offers spacious comfort with zero emissions and impressive range.",
       color: "bg-green-500",
       defaultImage: "/src/assets/carShowCase/1.png",
-      image: "/api/placeholder/400/300",
+      image: "/src/assets/carShowCase/green.jpg",
     },
     {
       id: 4,
@@ -43,7 +43,7 @@ const CarShowcase = () => {
         "A timeless masterpiece that never goes out of style. This vintage car brings classic elegance to the modern era.",
       color: "bg-purple-500",
       defaultImage: "/src/assets/carShowCase/1.png",
-      image: "/api/placeholder/400/300",
+      image: "/src/assets/carShowCase/purple.jpg",
     },
   ];
 

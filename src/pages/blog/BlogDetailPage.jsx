@@ -77,7 +77,7 @@ const BlogDetailPage = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="px-4 py-2 bg-blue-600 rounded-full text-sm font-medium">
+              <span className="px-4 py-2 border border-orange-500 text-white rounded-full text-sm font-medium">
                 {blogData.category}
               </span>
               <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-4">
@@ -112,7 +112,7 @@ const BlogDetailPage = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <button onClick={handleLike} className={`p-3 rounded-full border ${isLiked ? 'bg-red-50 border-red-200 text-red-500' : 'border-gray-200 text-gray-500'} hover:bg-gray-50 transition-colors`}>
+            <button onClick={handleLike} className={`p-3 rounded-full border ${isLiked ? 'bg-orange-50 border-red-200 text-orange-500' : 'border-gray-200 text-gray-500'} hover:bg-gray-50 transition-colors`}>
               <ThumbsUp className="w-5 h-5" />
             </button>
             <button className="p-3 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors">

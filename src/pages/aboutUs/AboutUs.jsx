@@ -9,7 +9,7 @@ const teamMembers = [
   {
     name: "Mohammad Zajbe",
     role: "Full stack Developer",
-    image: "https://i0.wp.com/picjumbo.com/wp-content/uploads/silhouette-of-a-guy-with-a-cap-at-red-sky-sunset-free-image.jpeg?h=800&quality=80",
+    image: "/src/assets/team/zajbe.jpg",
     github: "#",
     linkedin: "#",
     email: "mailto:alex@example.com"
@@ -17,7 +17,7 @@ const teamMembers = [
   {
     name: "Md Redan kabir",
     role: "Backend Developer",
-    image: "/src/assets/team/redan.jpg",
+    image: "/src/assets/team/rk.jpg",
     github: "#",
     linkedin: "#",
     email: "mailto:sarah@example.com"
@@ -25,7 +25,7 @@ const teamMembers = [
   {
     name: "Michael Park",
     role: "Frontend Developer",
-    image: "/src/assets/team/nafe.jpg",
+    image: "/src/assets/team/nafeBelon.jpg",
     github: "#",
     linkedin: "#",
     email: "mailto:michael@example.com"
