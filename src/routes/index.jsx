@@ -9,6 +9,11 @@ import CompanyAuctionPage from "../pages/auction/CompanyAuctionPage";
 // import AuctionDetails from "../pages/auction/AuctionDetails";
 import AuctionPage from "../pages/auction/AuctionPage";
 import AuctionDetails from "../pages/auction/AuctionDetails";
+import ComRegistration from "../pages/login/ComRegistration";
+import PersonRegistration from "../pages/login/PersonRegistration";
+import UserLogin from "../pages/login/UserLogin";
+import ComLogin from "../pages/login/ComLogin";
+import ComProfile from "../pages/company/ComProfile";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +50,27 @@ const router = createBrowserRouter([
                 path:'/auctionDetails',
                 element:<AuctionDetails></AuctionDetails>,
             },
+            {
+                path:'/comRegistration',
+                element:<ComRegistration></ComRegistration>,
+            },
+            {
+                path:'/personRegistration',
+                element:<PersonRegistration></PersonRegistration>,
+            },
+            {
+                path:'/userLogin',
+                element:<UserLogin></UserLogin>,
+            },
+            {
+                path:'/comLogin',
+                element:<ComLogin></ComLogin>,
+            },
+            {
+                path:'/comProfile',
+                element:<ComProfile></ComProfile>,
+            },
+
         
     ]
   },
