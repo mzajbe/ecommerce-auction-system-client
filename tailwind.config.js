@@ -1,8 +1,14 @@
-/* eslint-disable no-undef */
-/** @type {import('tailwindcss').Config} */
-const flowbite = require("flowbite-react/tailwind");
+// tailwind.config.js (or .ts if you're using TypeScript)
+import flowbite from 'flowbite';
+// import flowbiteReact from 'flowbite-react/tailwind';  // Ensure you import correctly
+
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content(), ],
+  content: [
+    "./index.html", 
+    "./src/**/*.{js,ts,jsx,tsx}", 
+    // flowbite.content(), 
+    // flowbiteReact.content(),
+  ],
   theme: {
     extend: {
       animation: {
@@ -16,16 +22,11 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui"), flowbite.plugin(),],
-
+  plugins: [
+    // require("daisyui"), 
+    // flowbite.plugin()
+  ],
   daisyui: {
     themes: ["light", "dark", "cupcake"],
   },
 };
-
-// module.exports = {
-//   //...
-//   plugins: [
-//     require('daisyui'),
-//   ],
-// }
