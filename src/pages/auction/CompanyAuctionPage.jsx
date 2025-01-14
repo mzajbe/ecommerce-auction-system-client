@@ -2,6 +2,7 @@
 import  { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Bike, Timer, ArrowRight, Calendar, Megaphone } from 'lucide-react';
+import { FiCircle } from "react-icons/fi";
 
 
 const CompanyAuctionPage = () => {
@@ -46,14 +47,18 @@ const CompanyAuctionPage = () => {
   ]);
 
   const liveAuctions = [
-    { id: 1, title: "Sport Bikes Collection", bidders: 45, timeLeft: "2h 15m" },
-    { id: 2, title: "Vintage Motorcycles", bidders: 32, timeLeft: "45m" },
-    { id: 2, title: "Vintage Motorcycles", bidders: 32, timeLeft: "45m" },
+    { id: 1, title: "Car" },
+    { id: 1, title: "Bike"},
+    //bidders: 45, timeLeft: "2h 15m"
+    
   ];
 
   const upcomingAuctions = [
-    { id: 1, title: "Premium Bikes Auction", date: "Jan 15, 2025", totalBikes: 12 },
-    { id: 2, title: "Classic Collection", date: "Jan 16, 2025", totalBikes: 8 }
+    
+    { id: 1, title: "Car",totalBikes: 12},
+    { id: 2, title: "Bike",totalBikes: 12},
+    //date: "Jan 15, 2025", totalBikes: 12
+    
   ];
 
   return (
@@ -116,6 +121,7 @@ const CompanyAuctionPage = () => {
             >
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold">Live Auctions</h2>
+                <FiCircle className="mr-12  text-red-600 bg-red-200 rounded-xl  text-xl animate-pulse" />
                 <Clock className="w-6 h-6" />
               </div>
               <div className="space-y-4">
@@ -127,11 +133,11 @@ const CompanyAuctionPage = () => {
                   >
                     <div className="flex justify-between items-center">
                       <span className="font-semibold">{auction.title}</span>
-                      <span className="text-sm">{auction.timeLeft}</span>
+                      {/* <span className="text-sm">{auction.timeLeft}</span> */}
                     </div>
-                    <div className="text-sm mt-2">
+                    {/* <div className="text-sm mt-2">
                       {auction.bidders} active bidders
-                    </div>
+                    </div> */}
                   </motion.div>
                 ))}
               </div>
@@ -159,8 +165,9 @@ const CompanyAuctionPage = () => {
                       <ArrowRight className="w-4 h-4" />
                     </div>
                     <div className="text-sm mt-2">
-                      {auction.date} • {auction.totalBikes} bikes
+                       • {auction.totalBikes} Available
                     </div>
+                    {/* {auction.date} */}
                   </motion.div>
                 ))}
               </div>

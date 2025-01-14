@@ -15,6 +15,7 @@ import Demo from "../pages/Demo";
 import AboutUs from "../pages/aboutUs/AboutUs";
 import Blog from "../pages/blog/Blog";
 import BlogDetailPage from "../pages/blog/BlogDetailPage";
+import CompanyDashboard from "../pages/dashboard/company-dashboard/CompanyDashboard";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
                 path:'/blog-details',
                 element:<BlogDetailPage></BlogDetailPage>,
             },
+            {
+                path:'/companyDashboard',
+                element:<CompanyDashboard></CompanyDashboard>,
+            }
         
     ]
   },
