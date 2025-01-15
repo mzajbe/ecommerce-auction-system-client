@@ -1,8 +1,13 @@
 import { useState } from "react";
 import {  Gavel, Home, Menu, X, User, Search,Newspaper,Contact,ShieldQuestion    } from "lucide-react";
+import { FaUser } from "react-icons/fa";
+
 //ShoppingCart,
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // State to control dropdown {Redan}
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
 
   const NavLinks = [
     { name: "Home", icon: <Home />, path: "/" },
@@ -16,6 +21,13 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  
   return (
     <nav className="bg-orange-400 shadow-md">
       <div className="max-w-[1400px] mx-auto">
@@ -49,13 +61,33 @@ const Navbar = () => {
                 <span>{link.name}</span>
               </a>
             ))}
-            <a
-              href="/profile"
-              className="bg-gray-100  px-4 py-2 rounded-full  text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
-            >
-              <User className="" />
-              <span className="">Login</span>
-            </a>
+
+            {/* Dropdown for Login */}
+            <div className="relative">
+              <button
+                onClick={toggleDropdown}
+                className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
+              >
+                <User />
+                <span>Login</span>
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute z-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                  <a
+                    href="/userLogin"
+                    className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                  >
+                    User Login
+                  </a>
+                  <a
+                    href="/comLogin"
+                    className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                  >
+                    Seller Login
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}

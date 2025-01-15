@@ -20,7 +20,7 @@ const CarShowcase = () => {
       name: "Luxury Sedan",
       shortDesc: "Where comfort meets sophistication",
       description:
-        "Indulge in supreme comfort and elegance. This luxury sedan combines sophisticated design with cutting-edge technology.",
+        "blue car. description here",
       color: "bg-blue-500",
       defaultImage: "/src/assets/carShowCase/1.png",
       image: "/src/assets/carShowCase/blue.jpg",
@@ -30,7 +30,7 @@ const CarShowcase = () => {
       name: "Electric SUV",
       shortDesc: "The future of sustainable driving",
       description:
-        "The future of sustainable driving. This electric SUV offers spacious comfort with zero emissions and impressive range.",
+        "green car. description here",
       color: "bg-green-500",
       defaultImage: "/src/assets/carShowCase/1.png",
       image: "/src/assets/carShowCase/green.jpg",
@@ -40,7 +40,7 @@ const CarShowcase = () => {
       name: "Classic Vintage",
       shortDesc: "Timeless elegance redefined",
       description:
-        "A timeless masterpiece that never goes out of style. This vintage car brings classic elegance to the modern era.",
+        "purple car. description here",
       color: "bg-purple-500",
       defaultImage: "/src/assets/carShowCase/1.png",
       image: "/src/assets/carShowCase/purple.jpg",
@@ -69,7 +69,7 @@ const CarShowcase = () => {
             {/* Card Content */}
             <div
               className={`
-                h-full w-full flex flex-col items-center justify-center
+                h-full w-96 flex flex-col items-center justify-center
                 transition-all duration-500 p-6
                 ${
                   selectedCard === car.id
@@ -90,11 +90,11 @@ const CarShowcase = () => {
 
                   {/* Content that appears on hover */}
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 group-hover: + ${car.color} transition-all duration-500`}>
-                    {/* New Image for hover */}
+                    {/* Image for hover */}
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="w-full object-cover rounded-lg shadow-lg"
+                      className="w-96 h-96  object-cover rounded-lg shadow-lg"
                     />
 
                     {/* Car Name appearing on hover */}
@@ -130,7 +130,7 @@ const CarShowcase = () => {
                       setSelectedCard(null);
                     }}
                   >
-                    Close
+                    View Auction
                   </button>
                 </div>
               )}
