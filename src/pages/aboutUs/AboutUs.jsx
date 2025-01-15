@@ -9,7 +9,7 @@ const teamMembers = [
   {
     name: "Mohammad Zajbe",
     role: "Full stack Developer",
-    image: "/src/assets/team/zajbe.jpg",
+    image: "/src/assets/team/z.png",
     github: "#",
     linkedin: "#",
     email: "mailto:alex@example.com"

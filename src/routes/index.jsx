@@ -15,11 +15,7 @@ import Demo from "../pages/Demo";
 import AboutUs from "../pages/aboutUs/AboutUs";
 import Blog from "../pages/blog/Blog";
 import BlogDetailPage from "../pages/blog/BlogDetailPage";
-import UserLogin from "../pages/login/UserLogin";
-import ComLogin from "../pages/login/ComLogin";
-import PersonRegistration from "../pages/login/PersonRegistration";
-import ComRegistration from "../pages/login/ComRegistration";
-
+import CompanyDashboard from "../pages/dashboard/company-dashboard/CompanyDashboard";
 
 const router = createBrowserRouter([
   {
@@ -73,23 +69,9 @@ const router = createBrowserRouter([
                 element:<BlogDetailPage></BlogDetailPage>,
             },
             {
-                path:'/userLogin',
-                element:<UserLogin></UserLogin>,
-            },
-            {
-                path:'/comLogin',
-                element:<ComLogin></ComLogin>,
-            },
-            
-            {
-                path:'/personRegistration',
-                element:<PersonRegistration></PersonRegistration>,
-            },
-            {
-                path:'/comRegistration',
-                element:<ComRegistration></ComRegistration>,
-            },
-
+                path:'/companyDashboard',
+                element:<CompanyDashboard></CompanyDashboard>,
+            }
         
     ]
   },
