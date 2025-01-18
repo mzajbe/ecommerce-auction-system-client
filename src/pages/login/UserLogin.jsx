@@ -25,7 +25,7 @@ const UserLogin = () => {
       const token = response.data.token;  
 
       // Save the token in a cookie  
-      Cookies.set("authToken", token, { expires: 1 }); // Cookie expires in 1 day  
+      Cookies.set("auth_token", token, { expires: 1 }); // Cookie expires in 1 day  
 
       // Redirect to the homepage or a user dashboard after successful login  
       navigate("/"); // Change the route based on your app's structure  

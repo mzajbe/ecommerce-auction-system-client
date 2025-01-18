@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+
 import {
   Gavel,
   Home,
@@ -21,7 +22,13 @@ const Navbar = () => {
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
+    console.log(token);
+    
     const loginType = Cookies.get("login_type"); // Retrieve the login type from cookies
+    console.log(loginType);
+
+   
+    
 
     if (token && loginType) {
       const apiEndpoint =
@@ -38,8 +45,8 @@ const Navbar = () => {
         .then((response) => {
           const userData = response.data;
 
-          console.log('userdata:',userData);
-          
+          console.log("userdata:", userData);
+
           if (loginType === "user" || loginType === "admin") {
             const { email, role } = userData;
             setUserInfo({ email, role });
@@ -50,6 +57,7 @@ const Navbar = () => {
         })
         .catch((error) => {
           console.error("Failed to fetch user info", error);
+          setUserInfo({ email: null, role: null }); // Ensure user info is reset on error
         });
     }
   }, []);
@@ -83,14 +91,15 @@ const Navbar = () => {
   ];
 
   console.log(userInfo);
-  
 
   return (
     <nav className="bg-orange-400 shadow-md">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-evenly h-16">
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-white">Auction System</span>
+            <span className="text-2xl font-bold text-white">
+              Auction System
+            </span>
           </div>
           <div className="flex-grow mx-4 hidden md:block">
             <div className="relative">
