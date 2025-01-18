@@ -17,6 +17,7 @@ import Blog from "../pages/blog/Blog";
 import BlogDetailPage from "../pages/blog/BlogDetailPage";
 import CompanyDashboard from "../pages/dashboard/company-dashboard/CompanyDashboard";
 import UserLogin from "../pages/login/UserLogin";
+import ComLogin from "../pages/login/ComLogin";
 
 const router = createBrowserRouter([
   {
@@ -76,7 +77,11 @@ const router = createBrowserRouter([
             {
                 path:'/user-login',
                 element:<UserLogin></UserLogin>
-            }
+            },
+            {
+                path:'/company-login',
+                element:<ComLogin></ComLogin>
+            },
         
     ]
   },

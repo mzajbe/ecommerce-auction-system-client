@@ -16,21 +16,37 @@ import {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [userEmail, setUserEmail] = useState(null);
+  const [userInfo, setUserInfo] = useState({ email: null, role: null });
+  const [loginType, setLoginType] = useState(null);
 
   useEffect(() => {
-    const token = Cookies.get("authToken");
-    console.log("Token from cookies:", token);
-    if (token) {
+    const token = Cookies.get("auth_token");
+    const loginType = Cookies.get("login_type"); // Retrieve the login type from cookies
+
+    if (token && loginType) {
+      const apiEndpoint =
+        loginType === "company"
+          ? "http://localhost:8000/api/company"
+          : "http://localhost:8000/api/user";
+
       axios
-        .get("http://localhost:8000/api/user", {
+        .get(apiEndpoint, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
-          console.log("API response:", response.data); // Debugging
-          setUserEmail(response.data.email);
+          const userData = response.data;
+
+          console.log('userdata:',userData);
+          
+          if (loginType === "user" || loginType === "admin") {
+            const { email, role } = userData;
+            setUserInfo({ email, role });
+          } else {
+            const { email } = userData;
+            setUserInfo({ email, role: null }); // No role for company
+          }
         })
         .catch((error) => {
           console.error("Failed to fetch user info", error);
@@ -38,12 +54,24 @@ const Navbar = () => {
     }
   }, []);
 
+  const handleLoginSelection = (type) => {
+    setLoginType(type);
+    Cookies.set("login_type", type); // Store login type in cookies
+
+    if (type === "company") {
+      window.location.href = "/company-login";
+    } else {
+      window.location.href = "/user-login";
+    }
+  };
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const handleLogout = () => {
-    Cookies.remove("authToken");
-    setUserEmail(null);
+    Cookies.remove("auth_token");
+    Cookies.remove("login_type");
+    setUserInfo({ email: null, role: null });
   };
 
   const NavLinks = [
@@ -54,7 +82,7 @@ const Navbar = () => {
     { name: "About", icon: <ShieldQuestion />, path: "/about" },
   ];
 
-  console.log(userEmail);
+  console.log(userInfo);
   
 
   return (
@@ -85,14 +113,14 @@ const Navbar = () => {
                 <span>{link.name}</span>
               </a>
             ))}
-            {userEmail ? (
+            {userInfo.email ? (
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
                   className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
                 >
                   <User />
-                  <span>{userEmail}</span>
+                  <span>{userInfo.email}</span>
                 </button>
                 {isDropdownOpen && (
                   <div className="absolute z-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
@@ -106,13 +134,31 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              <button
-                onClick={toggleDropdown}
-                className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
-              >
-                <User />
-                <span>Login</span>
-              </button>
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
+                >
+                  <User />
+                  <span>Login</span>
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute z-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                    <button
+                      onClick={() => handleLoginSelection("user")}
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    >
+                      Login as User
+                    </button>
+                    <button
+                      onClick={() => handleLoginSelection("company")}
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    >
+                      Login as Company
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
           </div>
           <div className="md:hidden">
@@ -126,48 +172,63 @@ const Navbar = () => {
         </div>
         {isMenuOpen && (
           <div className="md:hidden absolute left-0 right-0 bg-white shadow-lg">
-            <div className="hidden md:flex items-center space-x-4">
-  {NavLinks.map((link) => (
-    <a
-      key={link.name}
-      href={link.path}
-      className="text-white hover:bg-white hover:text-orange-400 px-3 py-2 rounded-xl flex items-center space-x-2"
-    >
-      {link.icon}
-      <span>{link.name}</span>
-    </a>
-  ))}
-  {userEmail ? (
-    <div className="relative">
-      <button
-        onClick={toggleDropdown}
-        className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
-      >
-        <User />
-        <span>{userEmail}</span>
-      </button>
-      {isDropdownOpen && (
-        <div className="absolute z-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
-          <button
-            onClick={handleLogout}
-            className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-          >
-            Logout
-          </button>
-        </div>
-      )}
-    </div>
-  ) : (
-    <button
-      onClick={toggleDropdown}
-      className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
-    >
-      <User />
-      <span>Login</span>
-    </button>
-  )}
-</div>
-
+            {NavLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.path}
+                className="text-white hover:bg-white hover:text-orange-400 px-3 py-2 rounded-xl flex items-center space-x-2"
+              >
+                {link.icon}
+                <span>{link.name}</span>
+              </a>
+            ))}
+            {userInfo.email ? (
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
+                >
+                  <User />
+                  <span>{userInfo.email}</span>
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute z-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                    <button
+                      onClick={handleLogout}
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="bg-gray-100 px-4 py-2 rounded-full text-orange-400 hover:text-white hover:bg-orange-400 border hover:border-white flex items-center space-x-2"
+                >
+                  <User />
+                  <span>Login</span>
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute z-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                    <button
+                      onClick={() => handleLoginSelection("user")}
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    >
+                      Login as User
+                    </button>
+                    <button
+                      onClick={() => handleLoginSelection("company")}
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    >
+                      Login as Company
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>
