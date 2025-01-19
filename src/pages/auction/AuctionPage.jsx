@@ -63,17 +63,17 @@ const AuctionPage = () => {
     fetchAuctions();
   }, []);
 
-  const formatDateTime = (dateTime) => {
-    const date = new Date(dateTime);
-    return date.toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
+  // const formatDateTime = (dateTime) => {
+  //   const date = new Date(dateTime);
+  //   return date.toLocaleDateString(undefined, {
+  //     weekday: 'long',
+  //     year: 'numeric',
+  //     month: 'long',
+  //     day: 'numeric',
+  //     hour: '2-digit',
+  //     minute: '2-digit',
+  //   });
+  // };
 
   if (loading) {
     return (
