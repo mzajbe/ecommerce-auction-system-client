@@ -105,9 +105,9 @@ const AuctionPage = () => {
             <div className="p-4 border-t border-gray-200">
               <div className="w-full flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-green-600" />
+                  {/* <DollarSign className="w-5 h-5 text-green-600" /> */}
                   <span className="text-xl font-bold text-green-600">
-                    ${parseFloat(auction.starting_price).toLocaleString()}
+                    {parseFloat(auction.starting_price).toLocaleString()} TK
                   </span>
                 </div>
                 <Link to="/auctionDetails">
