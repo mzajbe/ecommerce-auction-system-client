@@ -4,20 +4,20 @@ import axios from "axios";
 
 const AuctionForm = () => {
   const [formData, setFormData] = useState({
-    car_name: "",
-    model: "",
-    description: "",
-    image_url: "",
-    passenger_capacity: "",
-    body_style: "",
-    cylinders: "",
-    color: "",
-    engine_type: "",
-    transmission: "",
-    vehicle_type: "",
-    fuel: "",
+    car_name: "toyota",
+    model: "bmw",
+    description: "good",
+    image_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQDE4cJvMUaRNtQKS6pJCi7je2_72uwO5USw&s",
+    passenger_capacity: "2",
+    body_style: "sedan",
+    cylinders: "4",
+    color: "red",
+    engine_type: "V4",
+    transmission: "automatic",
+    vehicle_type: "auto",
+    fuel: "petrol",
     damage_description: "",
-    starting_price: "",
+    starting_price: "10",
     start_time: "",
     end_time: "",
   });
@@ -30,39 +30,56 @@ const AuctionForm = () => {
     });
   };
 
+  const formatDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
   console.log("Form Data:", formData);
   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formattedData = {
+      ...formData,
+      passenger_capacity: parseInt(formData.passenger_capacity),
+      cylinders: parseInt(formData.cylinders),
+      starting_price: parseFloat(formData.starting_price),
+      start_time: formatDateTime(formData.start_time),
+      end_time: formatDateTime(formData.end_time)
+    };
+
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/auctions",
-        formData
-      );
-      console.log("Auction created:", response.data);
-      alert("Auction created successfully!");
+      const response = await axios.post('http://localhost:8000/api/auctions', formattedData);
+      console.log('Auction created:', response.data);
+      alert('Auction created successfully!');
       setFormData({
-        car_name: "",
-        model: "",
-        description: "",
-        image_url: "",
-        passenger_capacity: "",
-        body_style: "",
-        cylinders: "",
-        color: "",
-        engine_type: "",
-        transmission: "",
-        vehicle_type: "",
-        fuel: "",
-        damage_description: "",
-        starting_price: "",
-        start_time: "",
-        end_time: "",
+        car_name: '',
+        model: '',
+        description: '',
+        image_url: '',
+        passenger_capacity: '',
+        body_style: '',
+        cylinders: '',
+        color: '',
+        engine_type: '',
+        transmission: '',
+        vehicle_type: '',
+        fuel: '',
+        damage_description: '',
+        starting_price: '',
+        start_time: '',
+        end_time: ''
       });
     } catch (error) {
-      console.error("Error creating auction:", error);
-      alert("Failed to create auction. Please try again.");
+      console.error('Error creating auction:', error);
+      alert('Failed to create auction. Please try again.');
     }
   };
 

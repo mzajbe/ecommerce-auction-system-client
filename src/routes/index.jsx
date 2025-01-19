@@ -55,6 +55,10 @@ const router = createBrowserRouter([
                 element:<AuctionDetails></AuctionDetails>,
             },
             {
+                path:'/auctionDetails/:id',
+                element:<AuctionDetails></AuctionDetails>,
+            },
+            {
                 path:'/contact',
                 element:<ContactForm></ContactForm>,
             },
