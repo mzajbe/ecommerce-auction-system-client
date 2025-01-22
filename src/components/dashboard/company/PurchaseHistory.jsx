@@ -5,16 +5,16 @@ const PurchaseHistory = () => {
     {
       id: 1,
       car: "BMW M3 2023",
-      buyer: "John Doe",
+      buyer: "zajbe",
       date: "2025-01-15",
-      price: "$85,000",
+      price: "85,000BDT",
     },
     {
       id: 2,
       car: "Mercedes AMG GT",
-      buyer: "Jane Smith",
+      buyer: "zajbe",
       date: "2025-01-14",
-      price: "$95,000",
+      price: "95,000BDT",
     },
   ];
   return (

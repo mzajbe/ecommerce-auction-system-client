@@ -29,7 +29,7 @@ const DashboardContent = () => (
 
 const CreateAuction = () => (
   <div>
-    <h1 className="text-xl font-bold">Create Auction</h1>
+    {/* <h1 className="text-xl font-bold">Create Auction</h1> */}
     {/* Add create auction form or content here */}
     <AuctionForm></AuctionForm>
   </div>
@@ -86,7 +86,7 @@ const CompanyDashboard = () => {
             initial={{ x: -300 }}
             animate={{ x: 0 }}
             exit={{ x: -300 }}
-            className="fixed left-0 h-screen w-64 bg-white shadow-xl z-40"
+            className="absolute left-0 h-full w-64 bg-white shadow-xl z-10"
           >
             <div className="p-6">
               <div className="mb-8">

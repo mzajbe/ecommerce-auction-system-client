@@ -21,7 +21,7 @@ const Charts = () => {
               transition={{ delay: 0.2 }}
               className="bg-white rounded-lg p-6 shadow-lg"
             >
-              <h3 className="text-xl font-bold mb-4">Sales Overview</h3>
+              <h3 className="text-xl font-bold mb-4">Bidding Overview</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={salesData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -41,7 +41,7 @@ const Charts = () => {
               transition={{ delay: 0.3 }}
               className="bg-white rounded-lg p-6 shadow-lg"
             >
-              <h3 className="text-xl font-bold mb-4">Monthly Performance</h3>
+              <h3 className="text-xl font-bold mb-4">Monthly Revenue</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={salesData}>
                   <CartesianGrid strokeDasharray="3 3" />

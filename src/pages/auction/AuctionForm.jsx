@@ -85,7 +85,7 @@ const AuctionForm = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg">
-      <h2 className="text-3xl font-extrabold mb-8 text-blue-600">
+      <h2 className="text-3xl font-extrabold mb-8 text-orange-400">
         Create Auction
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -408,7 +408,7 @@ const AuctionForm = () => {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="w-full bg-gradient-to-r from-orange-400 to-orange-700 text-white py-3 px-6 rounded-lg shadow-lg hover:from-orange-700 hover:to-orange-400 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           Submit Auction
         </button>

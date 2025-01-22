@@ -14,9 +14,14 @@ const Countdown = ({ targetTime }) => {
     return () => clearInterval(timer);
   }, [targetTime]);
 
-  if (timeLeft.total <= 0) {
-    return <span>Time&apos;s up!</span>;
-  }
+  if (timeLeft.total <= 0) {  
+    return (  
+      <span className="flex items-center">  
+        <span className="h-3 w-3 bg-red-500 rounded-full animate-ping mr-2"></span>  
+        Live  
+      </span>  
+    );  
+  } 
 
   return (
     <span>
@@ -154,22 +159,29 @@ const AuctionPage = () => {
 
               {/* Time Information */}
               <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
-                <div className="flex items-center justify-between group">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" />
-                    <span className="text-sm font-medium">Starts in:</span>
-                  </div>
-                  <Countdown targetTime={auction.start_time} />
-                </div>
-
-                <div className="flex items-center justify-between group">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-red-500 group-hover:scale-110 transition-transform" />
-                    <span className="text-sm font-medium">Ends in:</span>
-                  </div>
-                  <Countdown targetTime={auction.end_time} />
-                </div>
-              </div>
+  {new Date(auction.end_time) <= new Date() ? (
+    <div className="text-center text-red-500 font-bold">
+      Auction Finished
+    </div>
+  ) : (
+    <>
+      <div className="flex items-center justify-between group">
+        <div className="flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" />
+          <span className="text-sm font-medium">Starts in:</span>
+        </div>
+        <Countdown targetTime={auction.start_time} />
+      </div>
+      <div className="flex items-center justify-between group">
+        <div className="flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-red-500 group-hover:scale-110 transition-transform" />
+          <span className="text-sm font-medium">Ends in:</span>
+        </div>
+        <Countdown targetTime={auction.end_time} />
+      </div>
+    </>
+  )}
+</div>
             </div>
 
             {/* Footer Section */}

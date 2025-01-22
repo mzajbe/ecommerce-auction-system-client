@@ -103,7 +103,7 @@ const ActiveAuctions = () => {
                         whileTap={{ scale: 0.9 }}
                         className="p-2 text-yellow-500 hover:bg-yellow-50 rounded-full"
                       >
-                        <Star className="w-4 h-4" />
+                        {/* <Star className="w-4 h-4" /> */}
                       </motion.button>
                     )}
                   </div>
