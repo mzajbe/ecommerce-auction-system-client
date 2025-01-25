@@ -18,6 +18,7 @@ import BlogDetailPage from "../pages/blog/BlogDetailPage";
 import CompanyDashboard from "../pages/dashboard/company-dashboard/CompanyDashboard";
 import UserLogin from "../pages/login/UserLogin";
 import ComLogin from "../pages/login/ComLogin";
+import Cart from "../pages/cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
             {
                 path:'/company-login',
                 element:<ComLogin></ComLogin>
+            },
+            {
+                path:'/cart',
+                element:<Cart></Cart>
             },
         
     ]
