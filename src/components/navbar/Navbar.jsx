@@ -22,13 +22,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
-    console.log(token);
     
-    const loginType = Cookies.get("login_type"); // Retrieve the login type from cookies
-    console.log(loginType);
 
-   
-    
+    const loginType = Cookies.get("login_type"); // Retrieve the login type from cookies
+    // console.log(loginType);
 
     if (token && loginType) {
       const apiEndpoint =
@@ -45,7 +42,7 @@ const Navbar = () => {
         .then((response) => {
           const userData = response.data;
 
-          console.log("userdata:", userData);
+          // console.log("userdata:", userData);
 
           if (loginType === "user" || loginType === "admin") {
             const { email, role } = userData;
@@ -90,7 +87,7 @@ const Navbar = () => {
     { name: "About", icon: <ShieldQuestion />, path: "/about" },
   ];
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   return (
     <nav className="bg-orange-400 shadow-md">
