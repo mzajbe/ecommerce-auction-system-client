@@ -12,6 +12,8 @@ const Bidding = () => {
   const [bids, setBids] = useState([]);
   const [autoBid, setAutoBid] = useState({ maxBid: "", increment: "" });
   const [autoBidActive, setAutoBidActive] = useState(false);
+  const [lastAutoBidAmount, setLastAutoBidAmount] = useState(0); // Tracks the last auto-bid amount
+  const [currentUserId, setCurrentUserId] = useState(null); // Tracks the logged-in user's ID
 
   const { id } = useParams();
 
@@ -20,21 +22,27 @@ const Bidding = () => {
     try {
       const token = Cookies.get("auth_token");
 
+      // Fetch current user's details
+      const userResponse = await axios.get("http://localhost:8000/api/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCurrentUserId(userResponse.data.id);
+
+      // Fetch auction and bids
       const [auctionResponse, bidsResponse] = await Promise.all([
         axios.get(`http://localhost:8000/api/auctions/search?id=${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }),
         axios.get(`http://localhost:8000/api/auctions/${id}/bids`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
 
       setAuction(auctionResponse.data);
-      setBids(bidsResponse.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))); // Sort bids by date (descending)
+      const sortedBids = bidsResponse.data.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      ); // Sort bids by date (descending)
+      setBids(sortedBids);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to load data");
     } finally {
@@ -79,9 +87,7 @@ const Bidding = () => {
           bid_amount: bidAmount,
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${Cookies.get("auth_token")}` },
         }
       );
 
@@ -112,30 +118,36 @@ const Bidding = () => {
     alert(`Auto-bid activated up to $${parseFloat(maxBid).toLocaleString()} with increments of $${parseFloat(increment).toLocaleString()}`);
   };
 
+  // Auto-bid logic
   useEffect(() => {
     if (autoBidActive) {
-      const interval = setInterval(() => {
-        const { maxBid, increment } = autoBid;
-        const lastBid = bids.length > 0 ? parseFloat(bids[0].bid_amount) : auction?.[0]?.starting_price;
+      const { maxBid, increment } = autoBid;
 
-        if (lastBid < parseFloat(maxBid)) {
+      if (bids.length > 0) {
+        const lastBid = parseFloat(bids[0].bid_amount);
+        const lastBidderId = bids[0].user.id; // ID of the last bidder
+
+        // Only trigger auto-bid if the last bid was placed by someone else
+        if (lastBidderId !== currentUserId && lastBid < parseFloat(maxBid)) {
           const nextBid = Math.min(lastBid + parseFloat(increment), parseFloat(maxBid));
+
           axios
             .post(
               "http://localhost:8000/api/bids",
               { auction_id: id, bid_amount: nextBid },
               { headers: { Authorization: `Bearer ${Cookies.get("auth_token")}` } }
             )
-            .then(() => fetchAuctionAndBids())
+            .then(() => {
+              setLastAutoBidAmount(nextBid); // Update the last auto-bid amount
+              fetchAuctionAndBids(); // Refresh data after the bid
+            })
             .catch((err) => setError(err.response?.data?.message || "Failed to place auto-bid"));
-        } else {
-          setAutoBidActive(false);
+        } else if (lastBid >= parseFloat(maxBid)) {
+          setAutoBidActive(false); // Stop auto-bid if maxBid is reached
         }
-      }, 5000);
-
-      return () => clearInterval(interval);
+      }
     }
-  }, [autoBidActive, autoBid, bids]);
+  }, [bids, autoBidActive, autoBid, currentUserId]);
 
   if (loading) {
     return (
