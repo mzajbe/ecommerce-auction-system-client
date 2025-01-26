@@ -14,6 +14,7 @@ import {
   Contact,
   ShieldQuestion,
 } from "lucide-react";
+import NavbarSearch from "../search/NavbarSearch";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -119,7 +120,7 @@ const Navbar = () => {
       {/* logo end  */}
             {/* <img src={logo} alt="logo" className="h-8 w-8" /> */}
           </div>
-          <div className="flex-grow mx-4 hidden md:block">
+          {/* <div className="flex-grow mx-4 hidden md:block">
             <div className="relative">
               <input
                 type="text"
@@ -128,7 +129,8 @@ const Navbar = () => {
               />
               <Search className="absolute left-3 top-3 text-gray-400" />
             </div>
-          </div>
+          </div> */}
+          <NavbarSearch></NavbarSearch>
           <div className="hidden md:flex items-center space-x-4">
             {NavLinks.map((link) => (
               <a
