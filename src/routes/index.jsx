@@ -19,6 +19,9 @@ import CompanyDashboard from "../pages/dashboard/company-dashboard/CompanyDashbo
 import UserLogin from "../pages/login/UserLogin";
 import ComLogin from "../pages/login/ComLogin";
 import Cart from "../pages/cart/Cart";
+import PersonRegistration from "../pages/login/PersonRegistration";
+import UserRegistration from "../pages/login/UserRegistration";
+import LiveAuctionsPage from "../pages/auction/LiveAuctionPage";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +63,10 @@ const router = createBrowserRouter([
                 element:<AuctionDetails></AuctionDetails>,
             },
             {
+                path:'/liveAuction',
+                element:<LiveAuctionsPage></LiveAuctionsPage>,
+            },
+            {
                 path:'/contact',
                 element:<ContactForm></ContactForm>,
             },
@@ -82,6 +89,10 @@ const router = createBrowserRouter([
             {
                 path:'/user-login',
                 element:<UserLogin></UserLogin>
+            },
+            {
+                path:'/user-register',
+                element:<UserRegistration></UserRegistration>
             },
             {
                 path:'/company-login',

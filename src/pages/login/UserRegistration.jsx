@@ -1,58 +1,60 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { Mail, Lock, ShieldCheck } from "lucide-react";
+import { ShieldCheck, User, Mail, Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Card from "../../components/animationComponents/carComponents/Card";
 
-const UserLogin = () => {
-  const [email, setEmail] = useState(""); // State for email
-  const [password, setPassword] = useState(""); // State for password
-  const [error, setError] = useState(""); // State for error handling
-  const [success, setSuccess] = useState(""); // State for success message
-  const navigate = useNavigate(); // Use navigate to programmatically redirect after login
+const UserRegistration = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "user", // Role is fixed as 'user'
+  });
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error state
-    setSuccess("");
+    setSuccess(null);
+    setError(null);
 
     try {
-      // Make a POST request to the API endpoint
-      const response = await axios.post("http://localhost:8000/api/login", {
-        email,
-        password,
+      const response = await axios.post("http://localhost:8000/api/register", formData);
+      setSuccess("Registration successful! Redirecting to login...");
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        role: "user", // Reset the role to 'user'
       });
 
-      // Assuming your API returns the token in response.data.token
-      const token = response.data.token;
-
-      // Save the token in a cookie
-      Cookies.set("auth_token", token, { expires: 1 }); // Cookie expires in 1 day
-
-      // Show success message and redirect after 2 seconds
-      setSuccess("Login successful! Redirecting to the dashboard...");
+      // Redirect to login page after 2 seconds
       setTimeout(() => {
-        navigate("/"); // Redirect to the dashboard or homepage
+        navigate("/user-login");
       }, 2000);
     } catch (err) {
-      console.error(err);
-      setError("Invalid email or password."); // Show error message
+      setError(err.response?.data?.message || "Registration failed. Please try again.");
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 overflow-hidden">
-      {/* Background animations */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10">
-        <motion.div
+        <motion.div 
           className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.6 }}
           transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
         />
-        <motion.div
+        <motion.div 
           className="absolute top-1/2 right-1/4 w-64 h-64 bg-red-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.6 }}
@@ -60,31 +62,28 @@ const UserLogin = () => {
         />
       </div>
 
-      <motion.div
+      <motion.div 
         className="relative z-10 bg-white rounded-2xl shadow-2xl overflow-hidden flex w-full max-w-4xl"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
         {/* Left Side - Car Animation */}
-        <div className="w-1/2 bg-gradient-to-br from-blue-600 to-purple-700 relative overflow-hidden flex items-center justify-center p-8">
+        <div className="w-1/2 bg-gradient-to-br from-orange-600 to-slate-700 relative overflow-hidden flex items-center justify-center p-8">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             <Card />
-            <h1 className="text-3xl font-bold text-center text-white">Welcome Back to CarBid</h1>
-            <p className="text-center text-white opacity-80 mt-2">
-              Log in to explore amazing car auctions!
-            </p>
+            
           </motion.div>
         </div>
 
-        {/* Right Side - Login Form */}
+        {/* Right Side - Registration Form */}
         <div className="w-1/2 p-8 bg-white">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-            Sign In to Your Account
+            Create Your Account
           </h2>
 
           {success && (
@@ -110,12 +109,25 @@ const UserLogin = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4 relative">
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full pl-10 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Full Name"
+                required
+              />
+            </div>
+
+            <div className="mb-4 relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="email"
                 name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full pl-10 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Email Address"
                 required
@@ -127,22 +139,12 @@ const UserLogin = () => {
               <input
                 type="password"
                 name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleChange}
                 className="w-full pl-10 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Password"
                 required
               />
-            </div>
-
-            <div className="text-lg py-5 flex justify-between">
-              <div>
-                <span>Don&apos;t have an account? </span>
-                <Link className="text-blue-600 font-bold" to="/user-register">
-                  Register Now!
-                </Link>
-              </div>
-              
             </div>
 
             <motion.button
@@ -151,7 +153,7 @@ const UserLogin = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Login
+              Register Now
             </motion.button>
           </form>
         </div>
@@ -160,4 +162,4 @@ const UserLogin = () => {
   );
 };
 
-export default UserLogin;
+export default UserRegistration;

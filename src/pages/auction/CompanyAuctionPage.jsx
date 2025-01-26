@@ -1,8 +1,7 @@
-// Import necessary libraries
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Clock, Bike, Timer, ArrowRight, Calendar, Megaphone } from "lucide-react";
-import { FiCircle } from "react-icons/fi";
+import { Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CompanyAuctionPage = () => {
   const [auctions, setAuctions] = useState([]);
@@ -26,34 +25,30 @@ const CompanyAuctionPage = () => {
 
   // Organize auctions into a calendar format by day and time
   const organizeAuctionsByCalendar = (auctions) => {
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-    // Initialize a structure for calendar
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
     const calendar = {};
 
     auctions.forEach((auction) => {
       const auctionDate = new Date(auction.start_time);
-      console.log(auctionDate);
-      
       const day = daysOfWeek[auctionDate.getDay()];
-      console.log(day);
-      
-      const time = auctionDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      const time = auctionDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
 
-      console.log(time);
-      
       if (!calendar[time]) calendar[time] = {};
       if (!calendar[time][day]) calendar[time][day] = [];
-
       calendar[time][day].push(auction.company?.company_name);
-
-      
-      
     });
 
-    console.log(calendar);
-
-    // Convert object into an array for easier rendering
     const calendarArray = Object.entries(calendar).map(([time, days]) => ({
       time,
       schedule: daysOfWeek.map((day) => ({
@@ -61,23 +56,53 @@ const CompanyAuctionPage = () => {
         companies: days[day] || [],
       })),
     }));
-    console.log(calendarArray);
 
     setCalendarData(calendarArray);
   };
 
-
-  console.log(auctions);
-  console.log(calendarData[0]);
-  
-  
-  
-  
-
   return (
     <div className="container mx-auto p-4 h-screen">
+      {/* Cards Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <Link to="/auctionPage">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="p-6 bg-gradient-to-r from-orange-500 to-slate-600 text-white rounded-lg shadow-lg hover:scale-105 transition-transform cursor-pointer"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold">View All Auctions</h2>
+              <Calendar className="w-8 h-8" />
+            </div>
+            <p className="mt-4 text-sm">
+              Explore all auctions listed on the platform, including upcoming
+              and past events.
+            </p>
+          </motion.div>
+        </Link>
+
+        <Link to="/liveAuction">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="p-6 bg-gradient-to-r from-slate-600 to-orange-600 text-white rounded-lg shadow-lg hover:scale-105 transition-transform cursor-pointer"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold">View Live Auctions</h2>
+              {/* <LiveTv className="w-8 h-8" /> */}
+            </div>
+            <p className="mt-4 text-sm">
+              See live auctions happening in real-time. Don’t miss out on
+              exciting opportunities!
+            </p>
+          </motion.div>
+        </Link>
+      </div>
+
+      {/* Main Content */}
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Main Content */}
         <div className="lg:w-3/4 space-y-8">
           {/* Auction Calendar Section */}
           <div className="bg-white rounded-lg shadow-lg p-6">
@@ -86,9 +111,14 @@ const CompanyAuctionPage = () => {
               <table className="table-auto w-full border-collapse border border-gray-200">
                 <thead>
                   <tr>
-                    <th className="border border-gray-300 px-4 py-2">Auction Time</th>
+                    <th className="border border-gray-300 px-4 py-2">
+                      Auction Time
+                    </th>
                     {calendarData[0]?.schedule.map((day, index) => (
-                      <th key={index} className="border border-gray-300 px-4 py-2">
+                      <th
+                        key={index}
+                        className="border border-gray-300 px-4 py-2"
+                      >
                         {day.day}
                       </th>
                     ))}
@@ -101,7 +131,10 @@ const CompanyAuctionPage = () => {
                         {slot.time}
                       </td>
                       {slot.schedule.map((day, idx) => (
-                        <td key={idx} className="border border-gray-300 px-4 py-2">
+                        <td
+                          key={idx}
+                          className="border border-gray-300 px-4 py-2"
+                        >
                           {day.companies.length > 0 ? (
                             <ul className="list-disc list-inside">
                               {day.companies.map((company, i) => (
@@ -138,7 +171,8 @@ const CompanyAuctionPage = () => {
             </div>
             <div className="space-y-4">
               <p className="text-sm">
-                Our auction calendar provides a comprehensive overview of all upcoming auctions organized by time and day.
+                Our auction calendar provides a comprehensive overview of all
+                upcoming auctions organized by time and day.
               </p>
               <ul className="text-sm space-y-2">
                 <li className="flex items-center gap-2">

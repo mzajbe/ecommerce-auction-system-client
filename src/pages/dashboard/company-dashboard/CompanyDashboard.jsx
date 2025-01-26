@@ -21,7 +21,7 @@ import LiveAuctionsOfCompany from "../../../components/dashboard/company/LiveAuc
 // Define components for each tab
 const DashboardContent = () => (
   <>
-    <AuctionStatistics />
+    {/* <AuctionStatistics /> */}
     <Dashboard></Dashboard>
     <LiveAuctionsOfCompany></LiveAuctionsOfCompany>
     {/* <Charts /> */}
