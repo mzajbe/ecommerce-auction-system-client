@@ -29,7 +29,7 @@ const Hero = () => {
                   The Best Deals on Wheels
                 </p>
                 <p className="text-3xl md:text-5xl lg:text-4xl text-white font-bold text-center leading-snug md:leading-tight opacity-90 animate-fade-in">
-                  Car & Bike Auctions You Can't Miss.
+                  Car Auctions You Can't Miss.
                 </p>
                 <Link to="/auctionPage">
                   <button className="mt-6 px-8 py-3 bg-orange-400 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-white hover:text-orange-400 transition duration-300">
@@ -84,18 +84,22 @@ const Hero = () => {
 
       {/* Auction Cards */}
       <div className="w-1/2 mt-10 h-[500px] flex flex-col justify-between items-center space-y-4">
-        <div className="w-full h-60 bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg shadow-lg relative group">
-          <img
-            src="/src/assets/homeImages/heroSection/upcoming.jpg"
-            alt="Upcoming Auction"
-            className="w-full h-full object-cover rounded-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-            <h2 className="text-xl font-semibold opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-5 transition-all duration-500">
-              Upcoming Auction
-            </h2>
+        <Link to="/auctionPage">
+          <div className="w-full h-60 bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg shadow-lg relative group">
+            <img
+              src="/src/assets/homeImages/heroSection/upcoming.jpg"
+              alt="Upcoming Auction"
+              className="w-full h-full object-cover rounded-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <h2 className="text-xl font-semibold opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-5 transition-all duration-500">
+                Upcoming Auction
+              </h2>
+            </div>
           </div>
-        </div>
+        </Link>
+
+        <Link to="/liveAuction">
         <div className="w-full h-60 bg-gray-800 text-white flex flex-col justify-center items-center rounded-lg shadow-lg relative group">
           <img
             src="/src/assets/homeImages/heroSection/live.jpg"
@@ -110,6 +114,9 @@ const Hero = () => {
             </h2>
           </div>
         </div>
+        </Link>
+
+        
       </div>
     </div>
   );

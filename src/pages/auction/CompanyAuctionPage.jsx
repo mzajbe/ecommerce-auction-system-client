@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CompanyAuctionPage = () => {
   const [auctions, setAuctions] = useState([]);
   const [calendarData, setCalendarData] = useState([]);
+  const navigate = useNavigate(); // Initialize navigation hook
 
-  // Fetch auctions from API
   useEffect(() => {
     const fetchAuctions = async () => {
       try {
@@ -23,7 +23,6 @@ const CompanyAuctionPage = () => {
     fetchAuctions();
   }, []);
 
-  // Organize auctions into a calendar format by day and time
   const organizeAuctionsByCalendar = (auctions) => {
     const daysOfWeek = [
       "Sunday",
@@ -46,7 +45,7 @@ const CompanyAuctionPage = () => {
 
       if (!calendar[time]) calendar[time] = {};
       if (!calendar[time][day]) calendar[time][day] = [];
-      calendar[time][day].push(auction.company?.company_name);
+      calendar[time][day].push(auction.company);
     });
 
     const calendarArray = Object.entries(calendar).map(([time, days]) => ({
@@ -59,6 +58,11 @@ const CompanyAuctionPage = () => {
 
     setCalendarData(calendarArray);
   };
+
+  const handleCompanyClick = (companyId) => {
+    navigate(`/companyAuctions/${companyId}`); // Redirect to specific company auctions page
+  };
+
 
   return (
     <div className="container mx-auto p-4 h-screen">
@@ -125,32 +129,36 @@ const CompanyAuctionPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {calendarData.map((slot, index) => (
-                    <tr key={index}>
-                      <td className="border border-gray-300 px-4 py-2 text-center font-bold">
-                        {slot.time}
+                {calendarData.map((slot, index) => (
+                  <tr key={index}>
+                    <td className="border border-gray-300 px-4 py-2 text-center font-bold">
+                      {slot.time}
+                    </td>
+                    {slot.schedule.map((day, idx) => (
+                      <td
+                        key={idx}
+                        className="border border-gray-300 px-4 py-2"
+                      >
+                        {day.companies.length > 0 ? (
+                        <ul className="list-disc list-inside">
+                          {day.companies.map((company, i) => (
+                            <li
+                              key={i}
+                              className="text-green-500 cursor-pointer"
+                              onClick={() => handleCompanyClick(company.id)} // Redirect with company ID
+                            >
+                              {company.company_name}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                          <span className="text-gray-400">No auctions</span>
+                        )}
                       </td>
-                      {slot.schedule.map((day, idx) => (
-                        <td
-                          key={idx}
-                          className="border border-gray-300 px-4 py-2"
-                        >
-                          {day.companies.length > 0 ? (
-                            <ul className="list-disc list-inside">
-                              {day.companies.map((company, i) => (
-                                <li key={i} className="text-green-500">
-                                  {company}
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <span className="text-gray-400">No auctions</span>
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
               </table>
             </div>
           </div>

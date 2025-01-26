@@ -1,13 +1,14 @@
 // AuctionForm.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const AuctionForm = () => {
   const [formData, setFormData] = useState({
-    car_name: "toyota",
-    model: "bmw",
-    description: "good",
-    image_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQDE4cJvMUaRNtQKS6pJCi7je2_72uwO5USw&s",
+    car_name: "Ford Mustang",
+    model: "GT1",
+    description: "A powerful and stylish muscle car",
+    image_url: "https://media.ed.edmunds-media.com/ford/mustang/2025/oem/2025_ford_mustang_coupe_dark-horse_fq_oem_1_1280.jpg",
     passenger_capacity: "2",
     body_style: "sedan",
     cylinders: "4",
@@ -20,7 +21,29 @@ const AuctionForm = () => {
     starting_price: "10",
     start_time: "",
     end_time: "",
+    company_id: "",
   });
+
+  const [companyId, setCompanyId] = useState(null);
+
+  useEffect(() => {
+    // Retrieve company_id from cookies or API
+    const token = Cookies.get("auth_token");
+    const loginType = Cookies.get("login_type");
+
+    if (token && loginType === "company") {
+      axios
+        .get("http://localhost:8000/api/company", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setCompanyId(response.data.id); // Set company_id from API response
+        })
+        .catch((error) => {
+          console.error("Failed to fetch company info:", error);
+        });
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,13 +69,19 @@ const AuctionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!companyId) {
+      alert("Company ID is missing. Please log in as a company.");
+      return;
+    }
     const formattedData = {
       ...formData,
       passenger_capacity: parseInt(formData.passenger_capacity),
       cylinders: parseInt(formData.cylinders),
       starting_price: parseFloat(formData.starting_price),
       start_time: formatDateTime(formData.start_time),
-      end_time: formatDateTime(formData.end_time)
+      end_time: formatDateTime(formData.end_time),
+      company_id: companyId,
     };
 
     try {

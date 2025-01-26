@@ -15,12 +15,14 @@ import {
   ShieldQuestion,
 } from "lucide-react";
 import NavbarSearch from "../search/NavbarSearch";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userInfo, setUserInfo] = useState({ email: null, role: null });
   const [loginType, setLoginType] = useState(null);
+  const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
@@ -83,7 +85,7 @@ const Navbar = () => {
   const NavLinks = [
     { name: "Home", icon: <Home />, path: "/" },
     { name: "Auctions", icon: <Gavel />, path: "/auctions" },
-    { name: "Blogs", icon: <Newspaper />, path: "/blogs" },
+    // { name: "Blogs", icon: <Newspaper />, path: "/blogs" },
     { name: "Contact", icon: <Contact />, path: "/contact" },
     { name: "About", icon: <ShieldQuestion />, path: "/about" },
   ];
@@ -117,19 +119,9 @@ const Navbar = () => {
           animation: neon 3s infinite linear;
         }
       `}</style>
-      {/* logo end  */}
-            {/* <img src={logo} alt="logo" className="h-8 w-8" /> */}
+            
           </div>
-          {/* <div className="flex-grow mx-4 hidden md:block">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search products, auctions..."
-                className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <Search className="absolute left-3 top-3 text-gray-400" />
-            </div>
-          </div> */}
+          
           <NavbarSearch></NavbarSearch>
           <div className="hidden md:flex items-center space-x-4">
             {NavLinks.map((link) => (
@@ -153,13 +145,22 @@ const Navbar = () => {
                 </button>
                 {isDropdownOpen && (
                   <div className="absolute z-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                  {/* Show Company Dashboard only when loginType is company */}
+                  {loginType === "company" && (
                     <button
-                      onClick={handleLogout}
+                      onClick={() => navigate("/companyDashboard")} // Navigate to company dashboard
                       className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                     >
-                      Logout
+                      Company Dashboard
                     </button>
-                  </div>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                  >
+                    Logout
+                  </button>
+                </div>
                 )}
               </div>
             ) : (

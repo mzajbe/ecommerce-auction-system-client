@@ -22,6 +22,7 @@ import Cart from "../pages/cart/Cart";
 import PersonRegistration from "../pages/login/PersonRegistration";
 import UserRegistration from "../pages/login/UserRegistration";
 import LiveAuctionsPage from "../pages/auction/LiveAuctionPage";
+import CompanySpecificAuctions from "../pages/auction/CompanySpecificAuctions";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
             {
                 path:'/auctionDetails/:id',
                 element:<AuctionDetails></AuctionDetails>,
+            },
+            {
+                path:'/companyAuctions/:companyId',
+                element:<CompanySpecificAuctions></CompanySpecificAuctions>,
             },
             {
                 path:'/liveAuction',
