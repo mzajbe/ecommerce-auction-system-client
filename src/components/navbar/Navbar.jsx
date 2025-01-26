@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import logo from "../../assets/websiteLogo/logo.jpeg";
 
 import {
   Gavel,
@@ -22,7 +23,6 @@ const Navbar = () => {
 
   useEffect(() => {
     const token = Cookies.get("auth_token");
-    
 
     const loginType = Cookies.get("login_type"); // Retrieve the login type from cookies
     // console.log(loginType);
@@ -94,9 +94,30 @@ const Navbar = () => {
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-evenly h-16">
           <div className="flex items-center">
-            <span className="text-2xl font-bold text-white">
-              Auction System
-            </span>
+            {/* logo  */}
+            <div className=" inset-0">
+              <span className="text-2xl font-bold  text-transparent bg-gradient-to-r from-orange-800 via-black to-orange-800 bg-clip-text">
+                BidBlaze
+              </span>
+            </div>
+            <style>{`
+        @keyframes neon {
+          0% {
+            clip-path: inset(0 100% 0 0);
+          }
+          50% {
+            clip-path: inset(0 0 0 0);
+          }
+          100% {
+            clip-path: inset(0 0 0 100%);
+          }
+        }
+        .animate-neon {
+          animation: neon 3s infinite linear;
+        }
+      `}</style>
+      {/* logo end  */}
+            {/* <img src={logo} alt="logo" className="h-8 w-8" /> */}
           </div>
           <div className="flex-grow mx-4 hidden md:block">
             <div className="relative">
