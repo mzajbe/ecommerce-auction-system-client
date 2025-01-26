@@ -15,11 +15,15 @@ import ActiveAuctions from "../../../components/dashboard/company/ActiveAuctions
 import PurchaseHistory from "../../../components/dashboard/company/PurchaseHistory";
 import AuctionStatistics from "../../../components/dashboard/company/AuctionStatistics";
 import AuctionForm from "../../auction/AuctionForm";
+import Dashboard from "../../../components/dashboard/company/Dashboard";
+import LiveAuctionsOfCompany from "../../../components/dashboard/company/LiveAuctionsOfCompany";
 
 // Define components for each tab
 const DashboardContent = () => (
   <>
     <AuctionStatistics />
+    <Dashboard></Dashboard>
+    <LiveAuctionsOfCompany></LiveAuctionsOfCompany>
     {/* <Charts /> */}
     {/* <ActiveAuctions /> */}
     {/* <PurchaseHistory /> */}
