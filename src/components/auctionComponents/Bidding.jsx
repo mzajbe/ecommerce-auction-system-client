@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { DollarSign } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { DollarSign,ShoppingCart  } from "lucide-react";
+import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -12,23 +12,23 @@ const Bidding = () => {
   const [bids, setBids] = useState([]);
   const [autoBid, setAutoBid] = useState({ maxBid: "", increment: "" });
   const [autoBidActive, setAutoBidActive] = useState(false);
-  const [lastAutoBidAmount, setLastAutoBidAmount] = useState(0); // Tracks the last auto-bid amount
-  const [currentUserId, setCurrentUserId] = useState(null); // Tracks the logged-in user's ID
+  const [lastAutoBidAmount, setLastAutoBidAmount] = useState(0);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  // Fetch auction details and bids
   const fetchAuctionAndBids = async () => {
     try {
       const token = Cookies.get("auth_token");
 
-      // Fetch current user's details
       const userResponse = await axios.get("http://localhost:8000/api/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCurrentUserId(userResponse.data.id);
 
-      // Fetch auction and bids
       const [auctionResponse, bidsResponse] = await Promise.all([
         axios.get(`http://localhost:8000/api/auctions/search?id=${id}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -41,7 +41,7 @@ const Bidding = () => {
       setAuction(auctionResponse.data);
       const sortedBids = bidsResponse.data.sort(
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      ); // Sort bids by date (descending)
+      );
       setBids(sortedBids);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to load data");
@@ -50,7 +50,6 @@ const Bidding = () => {
     }
   };
 
-  // Polling to refresh data every 5 seconds
   useEffect(() => {
     fetchAuctionAndBids();
 
@@ -61,7 +60,6 @@ const Bidding = () => {
     return () => clearInterval(interval);
   }, [id]);
 
-  // Handle manual bid submission
   const handleBidSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -87,7 +85,7 @@ const Bidding = () => {
           bid_amount: bidAmount,
         },
         {
-          headers: { Authorization: `Bearer ${Cookies.get("auth_token")}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -98,7 +96,6 @@ const Bidding = () => {
     }
   };
 
-  // Handle auto-bid setup
   const handleAutoBidSubmit = (e) => {
     e.preventDefault();
     const { maxBid, increment } = autoBid;
@@ -118,16 +115,14 @@ const Bidding = () => {
     alert(`Auto-bid activated up to $${parseFloat(maxBid).toLocaleString()} with increments of $${parseFloat(increment).toLocaleString()}`);
   };
 
-  // Auto-bid logic
   useEffect(() => {
     if (autoBidActive) {
       const { maxBid, increment } = autoBid;
 
       if (bids.length > 0) {
         const lastBid = parseFloat(bids[0].bid_amount);
-        const lastBidderId = bids[0].user.id; // ID of the last bidder
+        const lastBidderId = bids[0].user.id;
 
-        // Only trigger auto-bid if the last bid was placed by someone else
         if (lastBidderId !== currentUserId && lastBid < parseFloat(maxBid)) {
           const nextBid = Math.min(lastBid + parseFloat(increment), parseFloat(maxBid));
 
@@ -138,16 +133,50 @@ const Bidding = () => {
               { headers: { Authorization: `Bearer ${Cookies.get("auth_token")}` } }
             )
             .then(() => {
-              setLastAutoBidAmount(nextBid); // Update the last auto-bid amount
-              fetchAuctionAndBids(); // Refresh data after the bid
+              setLastAutoBidAmount(nextBid);
+              fetchAuctionAndBids();
             })
             .catch((err) => setError(err.response?.data?.message || "Failed to place auto-bid"));
         } else if (lastBid >= parseFloat(maxBid)) {
-          setAutoBidActive(false); // Stop auto-bid if maxBid is reached
+          setAutoBidActive(false);
         }
       }
     }
   }, [bids, autoBidActive, autoBid, currentUserId]);
+
+  // New effect for adding winning auction to cart
+  const auctionEndTime = new Date(auction?.[0]?.end_time);
+  const currentTime = new Date();
+  const isAuctionEnded = currentTime >= auctionEndTime;
+  const maxBid = bids.length > 0 ? parseFloat(bids[0].bid_amount) : 0;
+  const isBidLimitReached = maxBid >= auction?.[0]?.starting_price * 10;
+  const winner = (isAuctionEnded || isBidLimitReached) && bids.length > 0 ? bids[0].user.name : null;
+  const isCurrentUserWinner = winner && bids.length > 0 && bids[0].user.id === currentUserId;
+
+
+  useEffect(() => {
+    if ((isAuctionEnded || isBidLimitReached) && winner) {
+      const addWinningAuctionToCart = async () => {
+        try {
+          const token = Cookies.get("auth_token");
+          const response = await axios.post(
+            `http://localhost:8000/api/cart/add-winning-auction/${id}`,
+            {},
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+
+          alert(response.data.message || "Winning auction added to cart successfully!");
+        } catch (err) {
+          console.error(err.response?.data?.message || "Failed to add auction to cart");
+          alert(err.response?.data?.message || "Failed to add auction to cart");
+        }
+      };
+
+      addWinningAuctionToCart();
+    }
+  }, [isAuctionEnded, isBidLimitReached, winner, id]);
 
   if (loading) {
     return (
@@ -161,14 +190,12 @@ const Bidding = () => {
     return <div className="text-red-600 text-center">Error: {error}</div>;
   }
 
-  const auctionEndTime = new Date(auction?.[0]?.end_time);
-  const currentTime = new Date();
-  const isAuctionEnded = currentTime >= auctionEndTime;
+  const auctionEndTimeDisplay = auctionEndTime ? auctionEndTime.toLocaleString() : "N/A";
 
-  const maxBid = bids.length > 0 ? parseFloat(bids[0].bid_amount) : 0;
-  const isBidLimitReached = maxBid >= auction?.[0]?.starting_price * 10;
+  const handleGoToCart = () => {
+    navigate('/cart');
+  };
 
-  const winner = isAuctionEnded || isBidLimitReached ? bids[0]?.user.name : null;
 
   return (
     <div className="lg:w-1/3">
@@ -178,6 +205,7 @@ const Bidding = () => {
             ${parseFloat(auction?.[0]?.starting_price).toLocaleString()}
           </div>
           <div className="text-gray-500">Starting Price</div>
+          <div className="text-gray-500">Auction End Time: {auctionEndTimeDisplay}</div>
         </div>
 
         {isAuctionEnded || isBidLimitReached ? (
@@ -187,6 +215,15 @@ const Bidding = () => {
             <p className="text-gray-500">
               Winner: <span className="font-bold text-green-600">{winner || "No bids placed"}</span>
             </p>
+            {isCurrentUserWinner && (
+              <button
+                onClick={handleGoToCart}
+                className="mt-4 flex items-center justify-center gap-2 w-full bg-blue-500 text-white py-3 rounded-lg transform hover:scale-105 transition-all duration-300"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                Go to Cart
+              </button>
+            )}
           </div>
         ) : (
           <>

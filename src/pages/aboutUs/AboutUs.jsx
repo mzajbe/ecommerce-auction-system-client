@@ -12,23 +12,23 @@ const teamMembers = [
     image: "/src/assets/team/z.png",
     github: "#",
     linkedin: "#",
-    email: "mailto:alex@example.com"
+    email: "mzajbe@gmail.com"
   },
   {
     name: "Md Redan kabir",
     role: "Backend Developer",
-    image: "/src/assets/team/rk.jpg",
+    image: "/src/assets/team/ridan-image.jpeg",
     github: "#",
     linkedin: "#",
-    email: "mailto:sarah@example.com"
+    email: "redan@gmail.com"
   },
   {
-    name: "Michael Park",
+    name: "Nafe Islam Sornob",
     role: "Frontend Developer",
-    image: "/src/assets/team/nafeBelon.jpg",
+    image: "/src/assets/team/nafe-p.jpg",
     github: "#",
     linkedin: "#",
-    email: "mailto:michael@example.com"
+    email: "sornob@gmail.com"
   }
 ];
 
@@ -250,7 +250,7 @@ const AboutUs = () => {
                 transition={{ delay: 0.6 }}
               >
                 <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                <p className="text-blue-600">{member.role}</p>
+                <p className="text-blue-600">{member.email}</p>
               </motion.div>
             </motion.div>
           ))}
