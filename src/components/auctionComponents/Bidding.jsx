@@ -55,7 +55,7 @@ const Bidding = () => {
 
     const interval = setInterval(() => {
       fetchAuctionAndBids();
-    }, 5000);
+    },5000);
 
     return () => clearInterval(interval);
   }, [id]);

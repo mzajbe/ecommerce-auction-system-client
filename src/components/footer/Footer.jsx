@@ -48,13 +48,13 @@ const Footer = () => {
           <h3 className="text-xl font-semibold">Contact Info</h3>
           <ul className="space-y-2">
             <li>
-              <p>📍 123 Auction Street, City, Country</p>
+              <p>📍 notun bazar, Dhaka, Bangladesh</p>
             </li>
             <li>
-              <p>📞 +1 (123) 456-7890</p>
+              <p>📞 01643817731</p>
             </li>
             <li>
-              <p>✉️ support@carauctions.com</p>
+              <p>✉️ mzajbe@gmail.com</p>
             </li>
           </ul>
         </div>
@@ -63,7 +63,7 @@ const Footer = () => {
       {/* Footer Bottom Section */}
       <div className="bg-gray-900 py-4 mt-8">
         <div className="max-w-screen-xl mx-auto text-center text-sm">
-          <p>&copy; {new Date().getFullYear()} Car Auctions. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} BidBlaze. All Rights Reserved.</p>
         </div>
       </div>
     </footer>
