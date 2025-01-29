@@ -67,14 +67,14 @@ const UserLogin = () => {
         transition={{ duration: 0.7 }}
       >
         {/* Left Side - Car Animation */}
-        <div className="w-1/2 bg-gradient-to-br from-blue-600 to-purple-700 relative overflow-hidden flex items-center justify-center p-8">
+        <div className="w-1/2 bg-gradient-to-br from-orange-600 to-slate-700 relative overflow-hidden flex items-center justify-center p-8">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             <Card />
-            <h1 className="text-3xl font-bold text-center text-white">Welcome Back to CarBid</h1>
+            <h1 className="text-3xl font-bold text-center text-white">Welcome Back to BidBlaze</h1>
             <p className="text-center text-white opacity-80 mt-2">
               Log in to explore amazing car auctions!
             </p>
@@ -147,7 +147,7 @@ const UserLogin = () => {
 
             <motion.button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700 transition-colors"
+              className="w-full bg-gradient-to-r from-slate-600 to-orange-400 text-white py-2 px-4 rounded-md font-medium hover transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
