@@ -42,7 +42,7 @@ const CompanySpecificAuctions = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 h-[75vh]">
+    <div className="container mx-auto p-4 h-[100vh]">
       <h1 className="text-2xl font-bold mb-4">Auctions by Company</h1>
       {filteredAuctions.length === 0 ? (
         <p>No auctions found for this company.</p>

@@ -93,14 +93,14 @@ const CompanyDashboard = () => {
             className="absolute left-0 h-full w-64 bg-white shadow-xl z-10"
           >
             <div className="p-6">
-              <div className="mb-8">
+              {/* <div className="mb-8">
                 <img
                   src="/api/placeholder/150/150"
                   alt="Company Logo"
                   className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-blue-500"
                 />
                 <h2 className="text-xl font-bold text-center">BMW Motors</h2>
-              </div>
+              </div> */}
 
               {/* Navigation */}
               <nav className="space-y-2">
@@ -108,9 +108,9 @@ const CompanyDashboard = () => {
                   { id: "dashboard", icon: <LayoutDashboard />, label: "Dashboard" },
                   { id: "create", icon: <PlusCircle />, label: "Create Auction" },
                   { id: "active", icon: <Clock />, label: "Active Auctions" },
-                  { id: "history", icon: <History />, label: "Purchase History" },
-                  { id: "statistics", icon: <BarChart3 />, label: "Statistics" },
-                  { id: "settings", icon: <Settings />, label: "Settings" },
+                  // { id: "history", icon: <History />, label: "Purchase History" },
+                  // { id: "statistics", icon: <BarChart3 />, label: "Statistics" },
+                  // { id: "settings", icon: <Settings />, label: "Settings" },
                 ].map((item) => (
                   <motion.button
                     key={item.id}
