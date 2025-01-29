@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {  Car, ShoppingBag, Users, ArrowRight, Shield,Github, Linkedin, Mail } from 'lucide-react';
 import SocialAnimation from '../../components/animationComponents/socialAnimation/SocialAnimation';
 import { motion } from 'framer-motion';
+import Card from '../../components/animationComponents/carComponents/Card';
 
 
 // Sample team member data  
@@ -187,10 +188,11 @@ const AboutUs = () => {
             </div>
 
             <div className="relative">
-              <div className="aspect-w-16 aspect-h-9 rounded-lg bg-gray-200 overflow-hidden">
-                <div className="p-8 flex items-center justify-center">
+              <div className="aspect-w-16 aspect-h-9 rounded-lg  overflow-hidden">
+                {/* <div className="p-8 flex items-center justify-center">
                   <Car className="w-32 h-32 text-gray-400" />
-                </div>
+                </div> */}
+                <Card></Card>
               </div>
             </div>
           </div>

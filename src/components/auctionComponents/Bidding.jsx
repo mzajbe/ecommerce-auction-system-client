@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { DollarSign,ShoppingCart  } from "lucide-react";
 import { useParams,useNavigate } from "react-router-dom";
+
+
 import axios from "axios";
 import Cookies from "js-cookie";
+import { div } from "framer-motion/client";
+import UnauthorizedForBid from "../animationComponents/biddingError/UnauthorizedForBid";
 
 const Bidding = () => {
   const [auction, setAuction] = useState(null);
@@ -44,7 +48,13 @@ const Bidding = () => {
       );
       setBids(sortedBids);
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to load data");
+      if (err.response?.status === 401) {
+        // Custom error message for unauthorized users
+        setError("For bidding, please login first.");
+      } else {
+        // Generic error message for other errors
+        setError(err.response?.data?.message || "Failed to load data.");
+      }
     } finally {
       setLoading(false);
     }
@@ -187,7 +197,11 @@ const Bidding = () => {
   }
 
   if (error) {
-    return <div className="text-red-600 text-center">Error: {error}</div>;
+    return (
+      <div className="mt-4">
+        <UnauthorizedForBid></UnauthorizedForBid>
+      </div>
+    );
   }
 
   const auctionEndTimeDisplay = auctionEndTime ? auctionEndTime.toLocaleString() : "N/A";
@@ -199,6 +213,7 @@ const Bidding = () => {
 
   return (
     <div className="lg:w-1/3">
+      
       <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-4">
         <div className="mb-6">
           <div className="text-3xl font-bold text-green-600">
